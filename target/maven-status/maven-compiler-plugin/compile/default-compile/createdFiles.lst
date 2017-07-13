@@ -1,0 +1,4 @@
+org\camunda\unsa\bpm\CustomerRatingApplication.class
+org\camunda\unsa\bpm\servlet\inicioProceso.class
+org\camunda\unsa\bpm\servlet\tareaListener.class
+org\camunda\unsa\bpm\servlet\ejecucionListener.class
