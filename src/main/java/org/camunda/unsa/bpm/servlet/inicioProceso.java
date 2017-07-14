@@ -39,6 +39,7 @@ public class inicioProceso extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -59,29 +60,29 @@ public class inicioProceso extends HttpServlet {
 		RepositoryService rs = processEngine.getRepositoryService();
 		List<ProcessDefinition> result = rs.createProcessDefinitionQuery().active().list();
 
-		ProcessInstance instancia2 = runtimeService.startProcessInstanceByKey("Ejemplo-Manejo-Subprocesos");
+		ProcessInstance instancia2 = runtimeService.startProcessInstanceByKey("Proceso2dfase");
 
-		TaskQuery query = ts.createTaskQuery()
-				.processInstanceId(instancia2.getProcessInstanceId())
-				.orderByTaskName()
-				.asc();
-
-		List<Task> tasks = query.list();
-
-		Map<String, Object> variables = new HashMap<String, Object>();
-
-		variables.put("externo", true);
-
-		int taskSize = tasks.size();
-		Task task = tasks.get(0);
-
-		ts.complete(task.getId(), variables);
-
-		query = ts.createTaskQuery().processInstanceId(instancia2.getProcessInstanceId()).orderByTaskName().asc();
-		tasks = query.list();
-		taskSize = tasks.size();
-
-		runtimeService.deleteProcessInstance(instancia2.getId(), "Evento fue finalizado");
+//		TaskQuery query = ts.createTaskQuery()
+//				.processInstanceId(instancia2.getProcessInstanceId())
+//				.orderByTaskName()
+//				.asc();
+//
+//		List<Task> tasks = query.list();
+//
+//		Map<String, Object> variables = new HashMap<String, Object>();
+//
+//		variables.put("externo", true);
+//
+//		int taskSize = tasks.size();
+//		Task task = tasks.get(0);
+//
+//		ts.complete(task.getId(), variables);
+//
+//		query = ts.createTaskQuery().processInstanceId(instancia2.getProcessInstanceId()).orderByTaskName().asc();
+//		tasks = query.list();
+//		taskSize = tasks.size();
+//
+//		runtimeService.deleteProcessInstance(instancia2.getId(), "Evento fue finalizado");
 
 		// String param = request.getParameter("id");
 		// ProcessInstance instancia =
