@@ -5,6 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Ejemplo Subproceso</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/jquery-ui.structure.css">
+<link rel="stylesheet"  href="css/styles_green.css" type="text/css" media="screen">
 <script src="js/lib/angular.min.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 <style>
@@ -16,10 +19,289 @@
 <body>
 	<div class="container" ng-controller="listadoCtrl">
 		<h1>Selecciona tipo de subProceso</h1>
-		<form action="http://localhost:8080/Camunda2daFace/inicioProceso"
+		<form action="http://localhost:8080/Camunda2daFace/process"
 			method="get" accept-charset="utf-8">
 			<button type="submit" class="btn btn-primary ng-binding"  ng-click="complete()" ng-disabled="	">Ejemplo-Manejo-Subprocesos</button>
 		</form>
-	</div>
+	
+	<section class="portletScreen">
+	<div ng-show="load" ></div>
+    <article class="fullBrowseContainer marginTop">
+    	<div class="browseSide sideLarge">
+    	    <article class="headingPortlet">
+				<article class="headingInfo second-style-mobile marginTopTitle">
+					<h1 class="portlet-heading">B&Uacute;SQUEDA</h1>
+				</article>
+			</article>
+			
+    	<ul class = "newBrowse">
+			<article class="dashboardTilesPortlet_Double lessMarginPadding" style="display:flex; align-items: center;align-content: center;justify-content: center;flex-flow: row nowrap;">
+				<div class="tile-search" style="padding-right: 1em;">
+					<div class="searchBar input-group lessPadding">
+						<input class="navSearchBar" type="text" placeholder="Buscar" ng-model="searchCriteria" ng-change="Search(searchCriteria)">
+						<button ng-click = "Search(searchCriteria)"  class="btnTop searchIcon">
+							<div class="icon-button">
+								<iconbuilder icon="magnifying_glass"></iconbuilder>
+							</div>
+						</button>
+						<div ng-show="true" class="clear-icon" ng-click="clearField(searchCriteria);" ><div>x</div></div>
+					</div>
+				</div>
+			</article>
+		
+			
+			
+			<generalsection>
+				<li class="newBrowseRow" ng-class="{liActive: $index === notiSelectIndex}" ng-repeat="noticia in noticias" ng-click = "setNoticia(noticia,$index)"> <!--ng-click="goToInfraccion(infraccion.codigo)"-->
+					<buttonleftsection class="buttonLeft">
+						<button class="browseButton">
+					    	<div class="icon-button">
+					        	<iconbuilder icon="keyboard_key_i"></iconbuilder>
+					        </div>
+					     </button>
+					</buttonleftsection>
+					<div class="information">
+						<centerbrowsesection class="information">
+			  				<div class="information">
+			  					<div class="column_1 itemNumber">
+			  						<div>{{noticia.titulo}}</div>
+			  					</div>
+			  				</div>
+			  				<div class="information">
+			  					<div class="column_1 itemNumber">
+			  						<!--<div>{{noticia.fecPub}}</div>-->
+			  						<time am-time-ago="noticia.fecPub"></time> 
+			  					</div>
+			  				</div>
+			  				<div class="information">
+			  					<div class="column_1 requisitionHeader_requisitionerCode">
+			  						<div ng-model=number>{{noticia.autor}}</div>
+			  					</div>
+			  				</div>
+			  				<div class="information">
+			  					<div class="column_1 requisitionHeader_requisitionerCode">
+			  						<div>Fuente: {{noticia.fuente}}</div>
+			  					</div> 
+			  				</div>
+			  				<div class="information">
+			  					<div class="column_1 description">
+			  						<div>{{noticia.contenido | limitTo:50}}</div>
+			  					</div>
+			  				</div>
+			  			</centerbrowsesection>
+					</div>
+				</li>
+			</generalsection>
+			<div  class = "moreBrowse ng-scope" ng-if="sharedService.isNoticias() && requestPaginacion.body.rowsTotal > 0" ng-click = "loadMore()">        	
+                <div class = "moreBrowse ng-scope" >
+                <p class = "firstLine ng-binding">{{requestPaginacion.body.rowsTotal}}+</p>                
+            </div>
+		</ul>			
+		<article class="buttonsPortlet">
+           <div class="buttonPortletInputBuilder">
+               <div class="textButtonBuilder">
+                   <button ng-click="go('/mapa');">
+                       <div class="icon-button">
+                           <iconbuilder icon="home"></iconbuilder>
+                       </div>
+                       <div class="text">Inicio</div>
+                   </button>
+                   <button ng-click = "nuevaNoticia()">
+						<div class="icon-button">
+							<iconbuilder icon="mail_forward"></iconbuilder>
+						</div>
+						<div class="text">Nuevo Elemento</div>
+					</button>
+               </div>
+           </div>
+      	</article>     	
+    	</div> 
+  
+    	
+    	<div class="displaySide">
+						<div ng-show="loadRight" class="loadingScreen browse"></div>
+						<div class="icon-slider" ng-click="changeView('R')" ng-show="hasLeftSide === true">
+								<iconbuilder icon="navigate_right"></iconbuilder>
+						</div>
+						<article class="headingPortlet">
+							<article class="headingInfo second-style-mobile marginTopTitle" devicechecker="second-style-mobile">
+									<h1 class="portlet-heading">Detalle</h1>
+							</article>
+						</article>	
+				<form name ="registroForm" novalidate>		
+				<article class="oneColLeftPortlet">
+					
+					<div class="addItemEdit">
+						<div class="inputsParent">
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">T&iacute;tulo:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<style type="text/css"> 
+												input[type=number]::-webkit-outer-spin-button,
+												input[type=number]::-webkit-inner-spin-button {
+											    -webkit-appearance: none;
+											    margin: 0;
+												}
+											</style> 
+											<textbox class="inputBuilderBox"> <input
+												tabindex="1" type="text" name="Titulo" ng-model="noticia.titulo" required /> 
+											</textbox>
+										</div>
+										<div class="validationMessage" ng-show = "registroForm.Titulo.$error.required">
+											<ul>
+												<li class="error" >
+													<div class="icon-validation">
+														<iconbuilder icon="error"></iconbuilder>
+													</div>
+													<div class="text">Debe ingresar el t&iacute;tulo de la noticia</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Contenido:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textarea id="descripcionTextArea" ng-model="noticia.contenido" 
+														size="30" tabindex="2" name = "Contenido" minlength = "1" maxlength = "400" required>
+											</textarea>
+										</div>
+										<div class="validationMessage" ng-show = "registroForm.Contenido.$error.required">
+											<ul>
+												<li class="error">
+													<div class="icon-validation">
+														<iconbuilder icon="error"></iconbuilder>
+													</div>
+													<div class="text">Debe ingresar el contenido de la noticia</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Autor:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox"> <input
+												tabindex="3" type="text" name="Fuente" ng-model="noticia.autor" required />
+											</textbox>
+										</div>
+										<div class="validationMessage" ng-show = "registroForm.Fuente.$error.required">
+											<ul>
+												<li class="error">
+													<div class="icon-validation">
+														<iconbuilder icon="error"></iconbuilder>
+													</div>
+													<div class="text">Debe ingresar el autor de la noticia</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</label>
+							</div>
+					 		<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Fecha de publicaci&oacute;n:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox">
+												<jqdate class="inputBuilderBox"  ng-model="noticia.fecha" required></jqdate>
+											</textbox>
+										</div>
+									</div>
+								</label>
+							</div>
+					 		<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Hora de publicaci&oacute;n:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox">
+<!-- 												<input type = "text" ng-model="noticia.hora" ui-mask="99:99:99"  ui-mask-placeholder ui-mask-placeholder-char="_"/> -->
+												<input type = "time" name = "usr_time" ng-model = "example.time"  required>												
+<!-- 												<input type = "time" name = "usr_time"  value = "{{noticia.hora}}" > -->
+											</textbox>
+										</div>
+									</div>
+								</label>
+							</div>
+			
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Fuente:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox"> <input
+												tabindex="4" type="text" ng-model="noticia.fuente"/> </textbox>
+										</div>
+									</div>
+								</label>
+							</div>
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Link:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox"> <input
+												tabindex="5" type="text" ng-model="noticia.link"/> </textbox>
+										</div>
+									</div>
+								</label>
+							</div>
+							
+							<div class="inputsParent">
+							<file-builder/>
+						</div>
+					</div>
+				</article>
+				<article class="oneColLeftPortlet">
+					<div class="addItemEdit">		
+						<div class="inputs rightIconbuilder centerButton">	
+							<button ng-show = "!enabled" ng-click = "saveNoticia()"  ng-class="{'widthButton': true, 'top-button': !registroForm.$valid  , 'successColor': registroForm.$valid}" ng-disabled = "!registroForm.$valid">
+								<div class="icon-button">
+									<iconbuilder icon="mail_forward"></iconbuilder>
+								</div>
+								<div class="text">Modificar</div>
+							</button>
+							<button  ng-show= "noticias.length > 0 && !enabled" ng-click = "deleteNews()">
+								<div class="icon-button">
+									<iconbuilder icon="mail_forward"></iconbuilder>
+								</div>
+								<div class="text">Archivar</div>
+							</button>
+							<button ng-show = "enabled" ng-click = "saveNoticia()"  ng-class="{'widthButton': true, 'top-button': !registroForm.$valid  , 'successColor': registroForm.$valid}"  ng-disabled = "!registroForm.$valid">
+								<div class="icon-button">
+									<iconbuilder icon="floppy_disk"></iconbuilder>
+								</div>
+								<div class="text">Guardar noticia</div>
+							</button>
+						</div>
+					</div>
+				</article>  
+			</form>
+        	 <article class="oneColLeftPortlet" ng-show="userDevice === 'mobile'">
+					<div class="addItemEdit">	
+						<div class="inputs rightIconbuilder">
+							<button ng-click="changeView('L')"  class="widthButton">
+								<div class="icon-button">
+									<iconbuilder icon="clipboard_checks"></iconbuilder>
+								</div>
+								<div class="text">Listado </div>
+							</button>	
+						</div>
+					</div>
+			</article>	
+        </div>	     
+    </article>
+</section>
+</div>
+
 </body>
 </html>
