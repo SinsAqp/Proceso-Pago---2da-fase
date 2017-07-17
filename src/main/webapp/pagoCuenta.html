@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="universidadApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Ejemplo Subproceso</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<link rel="stylesheet" href="../css/jquery-ui.structure.css">
+<link rel="stylesheet"  href="../css/styles_green.css" type="text/css" media="screen">
+<script src="../js/lib/angular.min.js" type="text/javascript"></script>
+<script src="../js/app.js" type="text/javascript"></script>
+<style>
+.puntero {
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div class="container" ng-controller="listadoCtrl">
+	
+	<section class="portletScreen">
+	<div ng-show="load" ></div>
+    <article class="fullBrowseContainer marginTop" style="
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;">    	
+    	
+    	<div class="displaySide" style="width: 50%" class="text-center">
+						<div ng-show="loadRight" class="loadingScreen browse"></div>
+						<div class="icon-slider" ng-click="changeView('R')" ng-show="hasLeftSide === true">
+								<iconbuilder icon="navigate_right"></iconbuilder>
+						</div>
+						<article class="headingPortlet">
+							<article class="headingInfo second-style-mobile marginTopTitle" devicechecker="second-style-mobile">
+									<h1 class="portlet-heading">Pagar en Cuenta Bancaria</h1>
+							</article>
+						</article>	
+				<form name ="registroForm" novalidate>		
+				<article class="oneColLeftPortlet">
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Nombres y Apellidos:
+						</div>						
+						<div class="col-md-6 inputArea">							
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input type="number" style="width: 100%; height: 20px;margin: 0px;" tabindex="1" name="Usuario" ng-model="app.usuario" required /> 
+								</textbox>
+							</div>											
+						</div>					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						DNI:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario" required /> 
+								</textbox>
+							</div>
+						</div>					 					 
+					</div>
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						RUC:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Banco:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox class="inputBuilderBox"> 
+								<select class="form-control" style="height: 25px;margin: 2px; padding: 0px;">
+								    <option>Banco 1</option>
+								    <option>Banco 2</option>
+								    <option>Banco 3</option>
+								    <option>Banco 4</option>
+							    </select> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+					<div style="width: 100%;">
+						<div class="col-md-6">
+						Cuenta bancaria:
+						</div>
+						
+						<div class="col-md-6">
+							<div class="labelContainer">											
+								<textbox style="width: 100%" class="inputBuilderBox"> <input style="width: 100%; height: 20px;margin: 0px;" tabindex="1" type="number" name="Usuario" ng-model="app.usuario" required /> 
+								</textbox>
+							</div>
+						</div>					 
+					</div>
+					
+				</article>
+				<article class="oneColLeftPortlet">
+					<div class="addItemEdit">		
+						<div class="inputs rightIconbuilder centerButton">								
+							<button  ng-click = "deleteNews()">								
+								<div class="text">Confirmar</div>
+							</button>							
+						</div>
+					</div>
+				</article>  
+			</form>
+        	 
+        </div>	     
+    </article>
+</section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="universidadApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Ejemplo Subproceso</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<link rel="stylesheet" href="../css/jquery-ui.structure.css">
+<link rel="stylesheet"  href="../css/styles_green.css" type="text/css" media="screen">
+<script src="../js/lib/angular.min.js" type="text/javascript"></script>
+<script src="../js/app.js" type="text/javascript"></script>
+<style>
+.puntero {
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div class="container" ng-controller="listadoCtrl">
+		
+	
+	<section class="portletScreen">
+	<div ng-show="load" ></div>
+    <article class="fullBrowseContainer marginTop" style="
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;">    	
+    	
+    	<div class="displaySide" style="width: 50%" class="text-center">
+						<div ng-show="loadRight" class="loadingScreen browse"></div>
+						<div class="icon-slider" ng-click="changeView('R')" ng-show="hasLeftSide === true">
+								<iconbuilder icon="navigate_right"></iconbuilder>
+						</div>
+						<article class="headingPortlet">
+							<article class="headingInfo second-style-mobile marginTopTitle" devicechecker="second-style-mobile">
+									<h1 class="portlet-heading">Validar Usuario</h1>
+							</article>
+						</article>	
+				<form name ="registroForm" novalidate>		
+				<article class="oneColLeftPortlet">
+					
+					<div class="addItemEdit">
+						<div class="inputsParent">
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">Usuario:</div>
+									<div class="inputArea">
+										<div class="labelContainer">											
+											<textbox class="inputBuilderBox"> <input
+												tabindex="1" type="text" name="Usuario" ng-model="app.usuario" required /> 
+											</textbox>
+										</div>
+										
+									</div>
+								</label>
+							</div>
+							<div class="inputs">
+								<label>
+									<div class="labelText requisitionDate">DNI:</div>
+									<div class="inputArea">
+										<div class="labelContainer">
+											<textbox class="inputBuilderBox"> <input
+												tabindex="1" type="text" name="DNI" ng-model="app.dni" required /> 
+											</textbox>
+										</div>										
+									</div>
+								</label>
+							</div>
+												
+							<file-builder/>
+						</div>
+					</div>
+				</article>
+				<article class="oneColLeftPortlet">
+					<div class="addItemEdit">		
+						<div class="inputs rightIconbuilder centerButton">	
+							<button ng-show = "!enabled" ng-click = "saveNoticia()"  ng-class="{'widthButton': true, 'top-button': !registroForm.$valid  , 'successColor': registroForm.$valid}" ng-disabled = "!registroForm.$valid">
+								
+								<div class="text">Validar</div>
+							</button>
+							<button  ng-click = "deleteNews()">
+								
+								<div class="text">Guardar</div>
+							</button>
+							
+						</div>
+					</div>
+				</article>  
+			</form>
+        	 
+        </div>	     
+    </article>
+</section>
+</div>
+
+</body>
+</html>
